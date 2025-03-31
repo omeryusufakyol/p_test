@@ -90,74 +90,135 @@ int find_max_position(t_node *stack)
     return max_pos;
 }
 
-void sort_small_stack_4(t_node **stack)
+int find_min(t_node *stack)
 {
-    // 4 elemanlı yığın sıralama
-    if ((*stack)->value > (*stack)->next->value)
-        sa(stack);  // İlk iki eleman sıralanıyor
+    if (!stack)
+        error_and_exit();  // veya uygun hata yönetimi
 
-    // Yığın sıralandıktan sonra, 3. elemanı yer değiştirmek için
-    ra(stack); // 3. elemanı başa alıyoruz
-
-    // Yeniden kontrol et, iki eleman arasında sıralama yapmak gerekebilir
-    if ((*stack)->value > (*stack)->next->value)
-        sa(stack);  // Son kontroller
-    // Eğer hala sıralanmadıysa, en son iki elemanı sıralamak için tekrar kontrol
-    if ((*stack)->next->next->value > (*stack)->next->next->next->value)
-        sa(stack);
+    int min = stack->value;
+    while (stack)
+    {
+        if (stack->value < min)
+            min = stack->value;
+        stack = stack->next;
+    }
+    return min;
 }
 
-void sort_small_stack_5(t_node **stack)
+void sort_small_stack_3(t_node **stack_a)
 {
-    // 5 elemanlı yığın sıralama
-    if ((*stack)->value > (*stack)->next->value)
-        sa(stack);  // İlk iki eleman sıralanıyor
+    int a = (*stack_a)->value;
+    int b = (*stack_a)->next->value;
+    int c = (*stack_a)->next->next->value;
 
-    ra(stack);  // Üçüncü elemanı başa getiriyoruz
-
-    // Eğer hala sıralanmadıysa, 4. ve 5. elemanları sıralıyoruz
-    if ((*stack)->next->value > (*stack)->next->next->value)
-        sa(stack);
-
-    // En son iki eleman için rotasyon yapılabilir
-    ra(stack);  
-
-    // Son kontroller
-    if ((*stack)->value > (*stack)->next->value)
-        sa(stack);  
+    if (a > b && b < c && a < c)
+        sa(stack_a);
+    else if (a > b && b > c)
+    {
+        sa(stack_a);
+        rra(stack_a);
+    }
+    else if (a > b && b < c && a > c)
+        ra(stack_a);
+    else if (a < b && b > c && a < c)
+    {
+        sa(stack_a);
+        ra(stack_a);
+    }
+    else if (a < b && b > c && a > c)
+        rra(stack_a);
 }
 
-void sort_small_stack(t_node **stack)
+
+void sort_small_stack_4(t_node **stack_a, t_node **stack_b)
 {
-    int size = list_size(*stack);
+    int min_val = find_min(*stack_a);
+    int size = list_size(*stack_a);
+    int pos = 0;
+    t_node *tmp = *stack_a;
+    
+    while (tmp)
+    {
+        if (tmp->value == min_val)
+            break;
+        pos++;
+        tmp = tmp->next;
+    }
+    
+    if (pos <= size / 2)
+    {
+        while ((*stack_a)->value != min_val)
+            ra(stack_a);
+    }
+    else
+    {
+        while ((*stack_a)->value != min_val)
+            rra(stack_a);
+    }
+    
+    pb(stack_a, stack_b);
+    // Artık stack_a’da 3 eleman kaldı.
+    sort_small_stack_3(stack_a);
+    pa(stack_b, stack_a);
+}
+
+
+void sort_small_stack_5(t_node **stack_a, t_node **stack_b)
+{
+    int min_val = find_min(*stack_a);
+    int size = list_size(*stack_a);
+    int pos = 0;
+    t_node *tmp = *stack_a;
+    
+    while (tmp)
+    {
+        if (tmp->value == min_val)
+            break;
+        pos++;
+        tmp = tmp->next;
+    }
+    
+    if (pos <= size / 2)
+    {
+        while ((*stack_a)->value != min_val)
+            ra(stack_a);
+    }
+    else
+    {
+        while ((*stack_a)->value != min_val)
+            rra(stack_a);
+    }
+    
+    pb(stack_a, stack_b);
+    // Artık stack_a’da 4 eleman kaldı.
+    sort_small_stack_4(stack_a, stack_b);
+    pa(stack_b, stack_a);
+}
+
+
+void sort_small_stack(t_node **stack_a, t_node **stack_b)
+{
+    int size = list_size(*stack_a);
 
     if (size == 2)
     {
-        // Yalnızca 2 eleman varsa, sadece 1 işlemle sıralanabilir.
-        if ((*stack)->value > (*stack)->next->value)
-            sa(stack);
+        if ((*stack_a)->value > (*stack_a)->next->value)
+            sa(stack_a);
     }
     else if (size == 3)
     {
-        // 3 eleman için insertion sort yapılabilir
-        if ((*stack)->value > (*stack)->next->value)
-            sa(stack);
-        if ((*stack)->next->value > (*stack)->next->next->value)
-            rra(stack);
-        if ((*stack)->value > (*stack)->next->value)
-            sa(stack);
+        sort_small_stack_3(stack_a);
     }
     else if (size == 4)
     {
-        // 4 eleman için sıralama yapılacak fonksiyon
-        sort_small_stack_4(stack);
+        sort_small_stack_4(stack_a, stack_b);
     }
     else if (size == 5)
     {
-        // 5 eleman için sıralama yapılacak fonksiyon
-        sort_small_stack_5(stack);
+        sort_small_stack_5(stack_a, stack_b);
     }
 }
+
 
 
 void sort_stack(t_node **stack_a, t_node **stack_b)
@@ -167,7 +228,7 @@ void sort_stack(t_node **stack_a, t_node **stack_b)
     if (size <= 5)
     {
         // 5 veya daha az eleman için küçük sıralama fonksiyonunu kullan
-        sort_small_stack(stack_a);
+        sort_small_stack(stack_a, stack_b);
         return ;
     }
 
