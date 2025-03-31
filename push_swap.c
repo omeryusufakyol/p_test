@@ -32,12 +32,12 @@ t_node  *parse_input(int ac, char **av)
                 j++;
             if (av[i][j] == '\0')
                 break ;
-            value = ft_atoi(&av[i][j]);
+            value = ft_atoi(&av[i][j], &stack);  // Aşağıdaki güncellenmiş ft_atoi'yi çağırıyoruz
             add_node_back(&stack, create_node(value));
             while (av[i][j] && av[i][j] != ' ')
                 j++;
         }
-		i++;
+        i++;
     }
     return (stack);
 }

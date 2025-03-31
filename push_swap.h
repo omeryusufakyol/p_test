@@ -32,7 +32,7 @@ t_node	*create_node(int value);
 void	add_node_back(t_node **stack, t_node *new_node);
 void	free_stack(t_node **stack);
 int		is_sorted(t_node *stack);
-int ft_atoi(const char *str);
+int ft_atoi(const char *str, t_node **stack);
 
 
 // ============== OPERATIONS ============
@@ -56,5 +56,6 @@ void	sort_stack(t_node **stack_a, t_node **stack_b);
 void sort_small_stack(t_node **stack);
 void sort_small_stack_4(t_node **stack);
 void sort_small_stack_5(t_node **stack);
+int find_min_value(t_node *stack);
 
 #endif

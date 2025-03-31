@@ -71,13 +71,14 @@ int	is_sorted(t_node *stack)
 	return (1);
 }
 
-static void print_error(void)
+static void print_error(t_node **stack)
 {
-	write(2, "Error\n", 6);
-	exit(1);
+    free_stack(stack);  // Belleği temizle
+    write(2, "Error\n", 6);
+    exit(1);
 }
 
-int ft_atoi(const char *str)
+int ft_atoi(const char *str, t_node **stack)
 {
     int i = 0;
     int sign = 1;
@@ -96,8 +97,13 @@ int ft_atoi(const char *str)
         result = result * 10 + (str[i] - '0');
         i++;
     }
+
+    // Eğer geçersiz karakterler varsa
+    if (str[i] != '\0')
+        print_error(stack);  // Geçersiz karakter için hata
+
     result *= sign;
     if (result > MAX_INT || result < MIN_INT)
-        print_error();
+        print_error(stack);  // Hata durumunda stack'i temizle ve çıkış yap
     return (int)result;
 }
