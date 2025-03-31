@@ -124,22 +124,28 @@ void sort_small_stack(t_node **stack)
 
 void sort_small_stack_4(t_node **stack)
 {
-    // 4 eleman için sıralama
+    // 4 elemanlı yığın için sıralama
     if ((*stack)->value > (*stack)->next->value)
         sa(stack);
     if ((*stack)->next->value > (*stack)->next->next->value)
         ra(stack);
     if ((*stack)->value > (*stack)->next->value)
         sa(stack);
+    if ((*stack)->next->value > (*stack)->next->next->value)
+        rra(stack);
 }
 
 void sort_small_stack_5(t_node **stack)
 {
-    // 5 eleman için sıralama
+    // 5 elemanlı yığın için sıralama
     if ((*stack)->value > (*stack)->next->value)
         sa(stack);
     if ((*stack)->next->value > (*stack)->next->next->value)
         ra(stack);
+    if ((*stack)->value > (*stack)->next->value)
+        sa(stack);
+    if ((*stack)->next->value > (*stack)->next->next->value)
+        rra(stack);
     if ((*stack)->value > (*stack)->next->value)
         sa(stack);
 }
