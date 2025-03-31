@@ -79,37 +79,25 @@ static void print_error(void)
 
 int ft_atoi(const char *str)
 {
-	long res;
-	int i;
-	int sign;
+    int i = 0;
+    int sign = 1;
+    long result = 0;
 
-	res = 0;
-	i = 0;
-	sign = 1;
-	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
-			sign = -1;
-		i++;
-	}
-	if (str[i] < '0' || str[i] > '9')
-		print_error();
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		res = res * 10 + (str[i] - '0');
-		if ((sign == 1 && res > MAX_INT) || (sign == -1 && -res < MIN_INT))
-		{
-			print_error();
-			return (0);
-		}
-		i++;
-	}
-	if (str[i] != '\0')
-	{
-		print_error();
-		return (0);
-	}
-	return ((int)(sign * res));
+    while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+        i++;
+    if (str[i] == '-' || str[i] == '+')
+    {
+        if (str[i] == '-')
+            sign = -1;
+        i++;
+    }
+    while (str[i] >= '0' && str[i] <= '9')
+    {
+        result = result * 10 + (str[i] - '0');
+        i++;
+    }
+    result *= sign;
+    if (result > MAX_INT || result < MIN_INT)
+        print_error();
+    return (int)result;
 }
