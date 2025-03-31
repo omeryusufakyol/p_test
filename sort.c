@@ -90,6 +90,43 @@ int find_max_position(t_node *stack)
     return max_pos;
 }
 
+void sort_small_stack_4(t_node **stack)
+{
+    // 4 elemanlı yığın sıralama
+    if ((*stack)->value > (*stack)->next->value)
+        sa(stack);  // İlk iki eleman sıralanıyor
+
+    // Yığın sıralandıktan sonra, 3. elemanı yer değiştirmek için
+    ra(stack); // 3. elemanı başa alıyoruz
+
+    // Yeniden kontrol et, iki eleman arasında sıralama yapmak gerekebilir
+    if ((*stack)->value > (*stack)->next->value)
+        sa(stack);  // Son kontroller
+    // Eğer hala sıralanmadıysa, en son iki elemanı sıralamak için tekrar kontrol
+    if ((*stack)->next->next->value > (*stack)->next->next->next->value)
+        sa(stack);
+}
+
+void sort_small_stack_5(t_node **stack)
+{
+    // 5 elemanlı yığın sıralama
+    if ((*stack)->value > (*stack)->next->value)
+        sa(stack);  // İlk iki eleman sıralanıyor
+
+    ra(stack);  // Üçüncü elemanı başa getiriyoruz
+
+    // Eğer hala sıralanmadıysa, 4. ve 5. elemanları sıralıyoruz
+    if ((*stack)->next->value > (*stack)->next->next->value)
+        sa(stack);
+
+    // En son iki eleman için rotasyon yapılabilir
+    ra(stack);  
+
+    // Son kontroller
+    if ((*stack)->value > (*stack)->next->value)
+        sa(stack);  
+}
+
 void sort_small_stack(t_node **stack)
 {
     int size = list_size(*stack);
@@ -112,49 +149,14 @@ void sort_small_stack(t_node **stack)
     }
     else if (size == 4)
     {
-        // 4 eleman için bir şekilde yer değiştirme
+        // 4 eleman için sıralama yapılacak fonksiyon
         sort_small_stack_4(stack);
     }
     else if (size == 5)
     {
-        // 5 eleman için sıralama
+        // 5 eleman için sıralama yapılacak fonksiyon
         sort_small_stack_5(stack);
     }
-}
-
-void sort_small_stack_4(t_node **stack)
-{
-    // 4 elemanlı yığın sıralama
-    if ((*stack)->value > (*stack)->next->value)
-        sa(stack);  // İlk iki eleman sıralanıyor
-
-    // Yığın sıralandıktan sonra, 3. elemanı yer değiştirmek için
-    ra(stack);
-
-    // Yeniden kontrol et, iki eleman arasında sıralama yapmak gerekebilir
-    if ((*stack)->value > (*stack)->next->value)
-        sa(stack);  // Son kontroller
-    // Eğer hala sıralanmadıysa, en son iki elemanı sıralamak için tekrar kontrol
-    if ((*stack)->next->next->value > (*stack)->next->next->next->value)
-        sa(stack);
-}
-
-void sort_small_stack_5(t_node **stack)
-{
-    // 5 elemanlı yığın sıralama
-    if ((*stack)->value > (*stack)->next->value)
-        sa(stack);  // İlk iki eleman sıralanıyor
-    ra(stack);     // Üçüncü elemanı en başa getiriyoruz
-
-    if ((*stack)->value > (*stack)->next->value)
-        sa(stack);  // Tekrar sıralama yapıyoruz
-
-    if ((*stack)->next->value > (*stack)->next->next->value)
-        ra(stack);  // Son iki elemanı sıralıyoruz
-
-    // Son kontroller
-    if ((*stack)->value > (*stack)->next->value)
-        sa(stack);  
 }
 
 
