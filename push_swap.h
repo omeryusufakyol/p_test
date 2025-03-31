@@ -53,9 +53,10 @@ int	list_size(t_node *stack);
 void	assign_index(t_node *stack);
 int	find_max_position(t_node *stack);
 void	sort_stack(t_node **stack_a, t_node **stack_b);
-void sort_small_stack(t_node **stack);
-void sort_small_stack_4(t_node **stack);
-void sort_small_stack_5(t_node **stack);
+void sort_small_stack(t_node **stack_a, t_node **stack_b);
+void sort_small_stack_4(t_node **stack_a, t_node **stack_b);
+void sort_small_stack_5(t_node **stack_a, t_node **stack_b);
+void sort_small_stack_3(t_node **stack_a);
 int find_min_value(t_node *stack);
 
 #endif
