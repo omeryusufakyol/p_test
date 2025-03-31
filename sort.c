@@ -124,31 +124,35 @@ void sort_small_stack(t_node **stack)
 
 void sort_small_stack_4(t_node **stack)
 {
-    // 4 elemanlı yığın için sıralama
+    // 4 elemanlı yığın sıralaması
     if ((*stack)->value > (*stack)->next->value)
-        sa(stack);
+        sa(stack);  // İlk iki eleman sıralanıyor
     if ((*stack)->next->value > (*stack)->next->next->value)
-        ra(stack);
+        ra(stack);  // Üçüncü elemanı en başa getiriyoruz
     if ((*stack)->value > (*stack)->next->value)
-        sa(stack);
-    if ((*stack)->next->value > (*stack)->next->next->value)
-        rra(stack);
+        sa(stack);  // Tekrar sıralama yapıyoruz
+    if ((*stack)->next->next->value > (*stack)->next->next->next->value)
+        ra(stack);  // Son iki elemanı sıralıyoruz
+    if ((*stack)->value > (*stack)->next->value)
+        sa(stack);  // Son kontroller
 }
+
 
 void sort_small_stack_5(t_node **stack)
 {
-    // 5 elemanlı yığın için sıralama
+    // 5 elemanlı yığın sıralaması
     if ((*stack)->value > (*stack)->next->value)
-        sa(stack);
+        sa(stack);  // İlk iki eleman sıralanıyor
     if ((*stack)->next->value > (*stack)->next->next->value)
-        ra(stack);
+        ra(stack);  // Üçüncü elemanı en başa getiriyoruz
     if ((*stack)->value > (*stack)->next->value)
-        sa(stack);
-    if ((*stack)->next->value > (*stack)->next->next->value)
-        rra(stack);
+        sa(stack);  // Tekrar sıralama yapıyoruz
+    if ((*stack)->next->next->value > (*stack)->next->next->next->value)
+        ra(stack);  // Son iki elemanı sıralıyoruz
     if ((*stack)->value > (*stack)->next->value)
-        sa(stack);
+        sa(stack);  // Son kontroller
 }
+
 
 void sort_stack(t_node **stack_a, t_node **stack_b)
 {
