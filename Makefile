@@ -13,7 +13,7 @@
 NAME = push_swap
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-SRC = push_swap.c utils.c operations.c sort.c
+SRC = push_swap.c utils.c operations.c sort.c check_duplicates.c create_node.c sort_small_stack.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)

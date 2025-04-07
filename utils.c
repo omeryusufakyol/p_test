@@ -13,24 +13,6 @@
 #include "push_swap.h"
 #include <stdlib.h>
 
-void	error_and_exit(void)
-{
-	write(2, "Error\n", 6);
-	exit(EXIT_FAILURE);
-}
-
-t_node	*create_node(int value)
-{
-	t_node	*new_node;
-	
-	new_node = (t_node *)malloc(sizeof(t_node));
-	if (!new_node)
-		error_and_exit();
-	new_node->value = value;
-	new_node->next = NULL;
-	return (new_node);
-}
-
 void	add_node_back(t_node **stack, t_node *new_node)
 {
 	t_node	*temp;
@@ -71,9 +53,9 @@ int	is_sorted(t_node *stack)
 	return (1);
 }
 
-static void print_error(t_node **stack)
+void print_error(t_node **stack)
 {
-    free_stack(stack);  // Belleği temizle
+    free_stack(stack);
     write(2, "Error\n", 6);
     exit(1);
 }
@@ -97,13 +79,10 @@ int ft_atoi(const char *str, t_node **stack)
         result = result * 10 + (str[i] - '0');
         i++;
     }
-
-    // Eğer geçersiz karakterler varsa
     if (str[i] != '\0')
-        print_error(stack);  // Geçersiz karakter için hata
-
-    result *= sign;
-    if (result > MAX_INT || result < MIN_INT)
-        print_error(stack);  // Hata durumunda stack'i temizle ve çıkış yap
-    return (int)result;
+        print_error(stack);
+    
+    if ((result * sign) > MAX_INT || (result * sign) < MIN_INT)
+        print_error(stack);
+    return ((int)(result * sign));
 }

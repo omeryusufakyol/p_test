@@ -13,7 +13,6 @@
 #include "push_swap.h"
 #include <stdio.h>
 
-// ARGÜMAN KONTROLÜ EKLENDİ
 t_node  *parse_input(int ac, char **av)
 {
     t_node *stack;
@@ -32,7 +31,7 @@ t_node  *parse_input(int ac, char **av)
                 j++;
             if (av[i][j] == '\0')
                 break ;
-            value = ft_atoi(&av[i][j], &stack);  // Aşağıdaki güncellenmiş ft_atoi'yi çağırıyoruz
+            value = ft_atoi(&av[i][j], &stack);
             add_node_back(&stack, create_node(value));
             while (av[i][j] && av[i][j] != ' ')
                 j++;
@@ -63,6 +62,7 @@ int main(int ac, char **av)
 		return (0);
 	}
     stack_a = parse_input(ac, av);
+    check_duplicates(stack_a);
     if (is_sorted(stack_a))
     {
         free_stack(&stack_a);

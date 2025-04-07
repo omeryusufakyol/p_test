@@ -33,6 +33,8 @@ void	add_node_back(t_node **stack, t_node *new_node);
 void	free_stack(t_node **stack);
 int		is_sorted(t_node *stack);
 int ft_atoi(const char *str, t_node **stack);
+void	check_duplicates(t_node *stack);
+void print_error(t_node **stack);
 
 
 // ============== OPERATIONS ============
